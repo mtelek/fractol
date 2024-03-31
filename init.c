@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtelek <mtelek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mtelek <mtelek@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 22:03:18 by mtelek            #+#    #+#             */
-/*   Updated: 2024/03/05 13:39:04 by mtelek           ###   ########.fr       */
+/*   Updated: 2024/03/31 17:26:07 by mtelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "minilibx-linux/mlx.h"
 #include <X11/X.h>
-
-//mouse movement animation only within julia
 
 static void	malloc_error(void)
 {
@@ -42,6 +40,18 @@ static void	events_init(t_fractal *fractal)
 		fractal);
 }
 
+static void	pixel_ptr_checker(t_fractal *fractal)
+{
+	if (fractal->img.pixels_ptr == NULL)
+	{
+		mlx_destroy_image(fractal->mlx_connection, fractal->img.img_ptr);
+		mlx_destroy_window(fractal->mlx_connection, fractal->mlx_window);
+		mlx_destroy_display(fractal->mlx_connection);
+		free(fractal->mlx_connection);
+		malloc_error();
+	}
+}
+
 void	fractal_init(t_fractal *fractal)
 {
 	fractal->mlx_connection = mlx_init();
@@ -66,6 +76,7 @@ void	fractal_init(t_fractal *fractal)
 	}
 	fractal->img.pixels_ptr = mlx_get_data_addr(fractal->img.img_ptr,
 			&fractal->img.bpp, &fractal->img.line_len, &fractal->img.endian);
+	pixel_ptr_checker(fractal);
 	events_init(fractal);
 	data_init(fractal);
 }
