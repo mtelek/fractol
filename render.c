@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtelek <mtelek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mtelek <mtelek@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 22:03:30 by mtelek            #+#    #+#             */
-/*   Updated: 2024/02/09 19:21:07 by mtelek           ###   ########.fr       */
+/*   Updated: 2024/04/03 12:17:27 by mtelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	my_pixel_put(int x, int y, t_img *img, int color)
 
 static void	mandel_vs_julia(t_complex *z, t_complex *c, t_fractal *fractal)
 {
-	if (!strncmp(fractal->name, "julia", 5))
+	if (!ft_strncmp(fractal->name, "julia", 5))
 	{
 		c->x = fractal->julia_x;
 		c->y = fractal->julia_y;
